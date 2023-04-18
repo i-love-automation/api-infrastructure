@@ -8,7 +8,6 @@ variable "service" {
   type        = string
   nullable    = false
   description = "The name of the service that will be run on the environment"
-  default     = "client"
 }
 
 variable "task_definition_execution_role_arn" {
