@@ -1,3 +1,10 @@
+variable "tfe_token" {
+  description = "TFE Team token"
+  nullable    = false
+  default     = false
+  sensitive   = true
+}
+
 variable "project" {
   type        = string
   nullable    = false
