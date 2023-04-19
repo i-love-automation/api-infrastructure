@@ -68,7 +68,7 @@ resource "aws_ecs_service" "api_service" {
 
   name                              = var.project
   cluster                           = aws_ecs_cluster.cluster.id
-  task_definition                   = aws_ecs_task_definition.task_definition.arn
+  task_definition                   = element(aws_ecs_task_definition.task_definition.*.arn, 0)
   desired_count                     = 1
   launch_type                       = "FARGATE"
   health_check_grace_period_seconds = 60
