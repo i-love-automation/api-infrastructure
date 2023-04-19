@@ -3,7 +3,7 @@ resource "aws_lb" "api_load_balancer" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.security_group_api_load_balancer.id]
-  subnets            = var.private_subnets_ids //[aws_subnet.private_1.id, aws_subnet.private_2.id]
+  subnets            = var.private_subnets_ids
 
   enable_deletion_protection = false
 
@@ -15,7 +15,7 @@ resource "aws_lb_target_group" "load_balancer_target_group_api" {
   target_type = "ip"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = var.project_vpc_id
+  vpc_id      = var.vpc_id
 
   health_check {
     path     = "/"
