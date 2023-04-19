@@ -41,13 +41,14 @@ resource "aws_apigatewayv2_vpc_link" "vpc_link" {
   tags = local.tags
 }
 
-data "aws_cognito_user_pools" "taxi-aymeric-user-pool" {
-  name = "taxi-aymeric-user-pool"
-}
+#data "aws_cognito_user_pools" "taxi-aymeric-user-pool" {
+#  name = "taxi-aymeric-user-pool"
+#}
+#
+#data "aws_cognito_user_pool_clients" "taxi-aymeric-user-pool-client" {
+#  user_pool_id = tolist(data.aws_cognito_user_pools.taxi-aymeric-user-pool.ids)[0]
+#}
 
-data "aws_cognito_user_pool_clients" "taxi-aymeric-user-pool-client" {
-  user_pool_id = tolist(data.aws_cognito_user_pools.taxi-aymeric-user-pool.ids)[0]
-}
 
 resource "aws_apigatewayv2_authorizer" "cognito_authorizer" {
   api_id           = aws_apigatewayv2_api.api_gateway.id
@@ -56,7 +57,7 @@ resource "aws_apigatewayv2_authorizer" "cognito_authorizer" {
   identity_sources = ["$request.header.Authorization"]
 
   jwt_configuration {
-    issuer   = "https://cognito-idp.us-east-1.amazonaws.com/${tolist(data.aws_cognito_user_pools.taxi-aymeric-user-pool.ids)[0]}"
-    audience = ["${data.aws_cognito_user_pool_clients.taxi-aymeric-user-pool-client.client_ids[0]}"]
+    issuer   = var.cognito_authorizer_issuer   //"https://cognito-idp.us-east-1.amazonaws.com/${tolist(data.aws_cognito_user_pools.taxi-aymeric-user-pool.ids)[0]}"
+    audience = var.cognito_authorizer_audience //["${data.aws_cognito_user_pool_clients.taxi-aymeric-user-pool-client.client_ids[0]}"]
   }
 }
