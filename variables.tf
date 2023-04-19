@@ -1,3 +1,9 @@
+variable "terraform_organization" {
+  type        = string
+  description = "The organization name on terraform cloud"
+  nullable    = false
+}
+
 variable "tfe_token" {
   description = "TFE Team token"
   nullable    = false
@@ -17,29 +23,47 @@ variable "service" {
   description = "The name of the service that will be run on the environment"
 }
 
-variable "task_definition_execution_role_arn" {
-  default = ""
+variable "container_tag" {
+  type        = string
+  nullable    = true
+  description = "The docker tag of the container api version to get in the ECR repository"
+  default     = false
 }
 
 variable "db_connexion_string" {
-  default = ""
-}
-
-variable "project_vpc_id" {
-  default = ""
+  type        = string
+  nullable    = false
+  description = "A connexion string to the database associated with this api"
 }
 
 variable "private_subnets_ids" {
-  default = ""
+  type        = list(string)
+  nullable    = false
+  description = "The ids of the project vpc private subnets where the api is hosted"
 }
 
-variable "public_subnets_id" {
-  default = ""
+# TODO We put the service in the public subnet to be able to pull on ECR,
+# but maybe it is a bad practice and we should put it on the private subnets and toggle the route association to access the igw temporarily
+# Public IP is the easiest way to be able to pull on ECR: https://stackoverflow.com/questions/61265108/aws-ecs-fargate-resourceinitializationerror-unable-to-pull-secrets-or-registry
+variable "public_subnets_ids" {
+  type        = list(string)
+  nullable    = false
+  description = "The ids of the project vpc public subnets where the service is hosted, "
+}
+
+variable "vpc_id" {
+  type        = string
+  nullable    = false
+  description = "The id of the project vpc"
 }
 
 variable "cognito_authorizer_issuer" {
-  default = ""
+  type        = string
+  nullable    = false
+  description = "The cognito issuer that generated the token"
 }
 variable "cognito_authorizer_audience" {
-  default = ""
+  type        = list(string)
+  nullable    = false
+  description = "The cognito audience that is allowed to interact with the token"
 }
