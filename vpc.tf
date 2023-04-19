@@ -1,7 +1,7 @@
 resource "aws_security_group" "security_group_api_load_balancer" {
   name        = "security-group-api-load-balancer"
   description = "Allow http and https inbound traffic"
-  vpc_id      = var.project_vpc_id //aws_vpc.taxi_aymeric_vpc.id
+  vpc_id      = var.vpc_id //aws_vpc.taxi_aymeric_vpc.id
 
   tags = merge(local.tags, { "Name" = "security-group-api-load-balancer" })
 
@@ -14,7 +14,7 @@ resource "aws_security_group" "security_group_api_load_balancer" {
 resource "aws_security_group" "security_group_api_service" {
   name        = "security-group-api-service"
   description = "Allow all inbound / outbound to load balancer"
-  vpc_id      = var.project_vpc_id //data.aws_vpc.taxi_aymeric_vpc.id
+  vpc_id      = var.vpc_id //data.aws_vpc.taxi_aymeric_vpc.id
 
   tags = merge(local.tags, { "Name" = "security-group-api-service" })
 
