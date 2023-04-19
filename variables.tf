@@ -36,3 +36,10 @@ variable "private_subnets_ids" {
 variable "public_subnets_id" {
   default = ""
 }
+
+variable "cognito_authorizer_issuer" {
+  default = ""
+}
+variable "cognito_authorizer_audience" {
+  default = ""
+}
