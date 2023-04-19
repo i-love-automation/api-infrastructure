@@ -35,19 +35,11 @@ resource "aws_apigatewayv2_route" "api_route" {
 
 resource "aws_apigatewayv2_vpc_link" "vpc_link" {
   name               = "vpc-link-to-internal-load-balancer"
-  subnet_ids         = var.private_subnets_ids //[aws_subnet.private_1.id, aws_subnet.private_2.id]
+  subnet_ids         = var.private_subnets_ids
   security_group_ids = []
 
   tags = local.tags
 }
-
-#data "aws_cognito_user_pools" "taxi-aymeric-user-pool" {
-#  name = "taxi-aymeric-user-pool"
-#}
-#
-#data "aws_cognito_user_pool_clients" "taxi-aymeric-user-pool-client" {
-#  user_pool_id = tolist(data.aws_cognito_user_pools.taxi-aymeric-user-pool.ids)[0]
-#}
 
 
 resource "aws_apigatewayv2_authorizer" "cognito_authorizer" {
