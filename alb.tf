@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "load_balancer_target_group_api" {
   vpc_id      = var.vpc_id
 
   health_check {
-    path     = "/"
+    path     = "/health"
     protocol = "HTTP"
     matcher  = "200"
 
