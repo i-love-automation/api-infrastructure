@@ -15,5 +15,5 @@ data "aws_ecr_image" "api_image" {
 }
 
 output "api_image" {
-  value = data.aws_ecr_image.api_image
+  value = data.aws_ecr_image.api_image.image_tags[0]
 }
