@@ -11,6 +11,7 @@ resource "aws_ecr_repository" "api" {
 
 data "aws_ecr_image" "api_image" {
   repository_name = aws_ecr_repository.api.name
+  most_recent     = true
 }
 
 output "api_image" {
