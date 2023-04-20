@@ -8,3 +8,11 @@ resource "aws_ecr_repository" "api" {
 
   tags = local.tags
 }
+
+data "aws_ecr_image" "api_image" {
+  repository_name = aws_ecr_repository.api.name
+}
+
+output "api_image" {
+  value = data.aws_ecr_image.api_image
+}
