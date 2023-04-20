@@ -23,7 +23,7 @@ variable "service" {
   description = "The name of the service that will be run on the environment"
 }
 
-variable "container_tag" {
+variable "image_tag" {
   type        = string
   nullable    = true
   description = "The docker tag of the container api version to get in the ECR repository"
