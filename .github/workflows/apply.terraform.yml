@@ -46,12 +46,6 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "tfe_token = \"${{ secrets.TF_API_TOKEN }}\"" >> terraform.auto.tfvars
-          terraform apply -auto-approve -input=false
-
-      - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && steps.setup.outputs.force-replace == ''
         run: |
           echo "tfe_token = \"${{ secrets.TF_API_TOKEN }}\"" >> terraform.auto.tfvars
