@@ -17,14 +17,12 @@ resource "aws_ecs_cluster_capacity_providers" "fargate" {
 }
 
 resource "aws_ecs_task_definition" "task_definition" {
-  count = length(data.aws_ecr_image.api_image.image_tags) > 0 ? 1 : 0
-
   family             = "node-api"
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
   container_definitions = jsonencode([
     {
       name : var.project,
-      image : "${aws_ecr_repository.api.repository_url}:${data.aws_ecr_image.api_image.image_tags[0]}",
+      image : var.target_image //"${aws_ecr_repository.api.repository_url}:${data.aws_ecr_image.api_image.image_tags[0]}",
       environment : [
         { "name" : "PORT", "value" : "80" },
         { "name" : "DATABASE_URL", "value" : var.db_connexion_string }
@@ -64,8 +62,6 @@ resource "aws_ecs_task_definition" "task_definition" {
 }
 
 resource "aws_ecs_service" "api_service" {
-  count = length(data.aws_ecr_image.api_image.image_tags) > 0 ? 1 : 0
-
   name                              = var.project
   cluster                           = aws_ecs_cluster.cluster.id
   task_definition                   = element(aws_ecs_task_definition.task_definition.*.arn, 0)
