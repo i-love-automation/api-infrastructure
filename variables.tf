@@ -55,8 +55,15 @@ variable "cognito_authorizer_issuer" {
   nullable    = false
   description = "The cognito issuer that generated the token"
 }
+
 variable "cognito_authorizer_audience" {
   type        = list(string)
   nullable    = false
   description = "The cognito audience that is allowed to interact with the token"
+}
+
+variable "target_image" {
+  type        = string
+  nullable    = false
+  description = "An image with a version tag has been released on the ECR repository"
 }
