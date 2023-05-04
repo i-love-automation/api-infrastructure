@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   container_definitions = jsonencode([
     {
       name : var.project,
-      image : var.target_image //"${aws_ecr_repository.api.repository_url}:${data.aws_ecr_image.api_image.image_tags[0]}",
+      image : var.target_image,
       environment : [
         { "name" : "PORT", "value" : "80" },
         { "name" : "DATABASE_URL", "value" : var.db_connexion_string }
